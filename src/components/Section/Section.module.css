@@ -1,0 +1,25 @@
+/* .section {
+  margin-top
+
+} */
+
+.title {
+  padding: 20px 0;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  color: #2cac60;
+
+  border-bottom: 2px solid #32ac63;
+}
+
+@media screen and (min-width: 1024px) {
+  .title {
+    text-align: left;
+  }
+}
