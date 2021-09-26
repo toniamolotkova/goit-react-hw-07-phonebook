@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import s from './ContactsList.module.css';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from 'redux/operations';
 import { TiDeleteOutline } from "react-icons/ti";
 
 const ContactsList = () => {

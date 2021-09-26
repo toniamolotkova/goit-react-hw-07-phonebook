@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import s from './ContactForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/actions';
+import { addContact } from '../../redux/operations';
 import { TiTickOutline } from 'react-icons/ti';
 
 function ContactForm() {
