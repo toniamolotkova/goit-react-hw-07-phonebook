@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-06-phonebook",
+  "name": "goit-react-hw-07-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://toniamolotkova.github.io/goit-react-hw-06-phonebook",
+  "homepage": "https://toniamolotkova.github.io/goit-react-hw-07-phonebook",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -29,7 +29,7 @@
     "prepare": "husky install",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "server": "json-server --port 3000 --watch db.json"
+    "server": "json-server --port 3001 --watch db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +55,8 @@
     "husky": "^7.0.1",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "json-server": "^0.16.3"
   },
   "lint-staged": {
     "*.js,jsx": "eslint --cache --fix",

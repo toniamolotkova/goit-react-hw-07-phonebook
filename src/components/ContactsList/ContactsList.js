@@ -1,8 +1,8 @@
 
 import { useSelector, useDispatch } from 'react-redux';
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './ContactsList.module.css';
-import { deleteContact } from 'redux/operations';
+import { deleteContact, fetchContacts } from 'redux/operations';
 import { TiDeleteOutline } from "react-icons/ti";
 
 const ContactsList = () => {
@@ -17,6 +17,10 @@ const ContactsList = () => {
 
   const contacts = useSelector(state => getFilteredContacts(state));
   const dispatch = useDispatch();
+
+  useEffect(() => 
+    dispatch(fetchContacts()), [dispatch]
+  )
 
   const onDeleteContact = id => dispatch(deleteContact(id));
 
