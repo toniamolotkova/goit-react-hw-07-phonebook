@@ -1,24 +1,9 @@
 {
   "contacts": [
     {
-      "name": "dcrv",
+      "name": "Макко Арт",
       "number": "454-45-23",
-      "id": 2
-    },
-    {
-      "name": "Jonny",
-      "number": "454-45-67",
-      "id": 5
-    },
-    {
-      "name": "Gerry",
-      "number": "454-45-67",
-      "id": 6
-    },
-    {
-      "name": "dcrv",
-      "number": "454-45-67",
-      "id": 7
+      "id": 13
     }
   ]
 }

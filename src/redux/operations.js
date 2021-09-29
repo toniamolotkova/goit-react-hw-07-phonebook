@@ -1,42 +1,43 @@
 import axios from "axios";
 import * as actions from './actions';
-import { toast } from 'react-toastify';
+//import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as api from '../services/services';
 
 axios.defaults.baseURL = 'http://localhost:3001';
 
-export const fetchContacts = () => dispatch => {
+export const fetchContacts = () => async dispatch => {
     dispatch(actions.fetchContactRequest());
 
-    axios
-        .get('./contacts')
-        .then(({ data }) => dispatch(actions.fetchContactSuccess(data)))
-    .catch(error => dispatch(actions.fetchContactError(error)))
+    try {
+        const contacts = await api.fetchContacts();
+        dispatch(actions.fetchContactSuccess(contacts))
+        
+    } catch (error) {
+        dispatch(actions.fetchContactError(error))
+    }
  }
 
-export const addContact = ({ name, number }) => dispatch => {
+export const addContact = contactInfo => async dispatch => {  
+    dispatch(actions.addContactRequest());
 
-  const contact = { name, number }
-  
-  dispatch(actions.addContactRequest())
-    axios
-        .post('./contacts', contact)
-        .then(({ data }) => {
-            if (data.find(item => item.name === contact.name)) {
-                toast.error(`${contact.name} is already in contacts`);
-                return;
-            }
-            dispatch(actions.addContactSuccess(data))
-        }
-           )
-        .catch(error => dispatch(actions.addContactError(error)));
+    try {
+        const contact = await api.addContacts(contactInfo);
+        dispatch(actions.addContactSuccess(contact))
+    } catch (error) {
+        dispatch(actions.addContactError(error))
+    }
 }
 
-export const deleteContact = id => dispatch => {
+export const deleteContact = id => async dispatch => {
     dispatch(actions.deleteContactRequest());
 
-    axios
-        .delete(`./contacts/${id}`)
-        .then(() => dispatch(actions.deleteContactSuccess(id)))
-        .catch(error => dispatch(actions.deleteContactError(error)))
+    try {
+        const deleteContact = await api.deleteContact(id);
+        dispatch(actions.deleteContactSuccess(deleteContact));
+
+    } catch (error) {
+        dispatch(actions.deleteContactError(error))
+    }
+
 }
