@@ -1,43 +1,31 @@
-import axios from "axios";
-import * as actions from './actions';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 //import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+//import 'react-toastify/dist/ReactToastify.css';
 import * as api from '../services/services';
 
-axios.defaults.baseURL = 'http://localhost:3001';
 
-export const fetchContacts = () => async dispatch => {
-    dispatch(actions.fetchContactRequest());
-
-    try {
+export const fetchContacts = createAsyncThunk(
+    'contacts/fetchContacts',
+    async () => {
         const contacts = await api.fetchContacts();
-        dispatch(actions.fetchContactSuccess(contacts))
-        
-    } catch (error) {
-        dispatch(actions.fetchContactError(error))
+        return contacts; 
     }
- }
+)
 
-export const addContact = contactInfo => async dispatch => {  
-    dispatch(actions.addContactRequest());
 
-    try {
+export const addContact = createAsyncThunk(
+    'contacts/addContact',
+    async (contactInfo) => {
         const contact = await api.addContacts(contactInfo);
-        dispatch(actions.addContactSuccess(contact))
-    } catch (error) {
-        dispatch(actions.addContactError(error))
+        return contact;
     }
-}
+)
 
-export const deleteContact = id => async dispatch => {
-    dispatch(actions.deleteContactRequest());
 
-    try {
+export const deleteContact = createAsyncThunk(
+    'contacts/deleteContacts',
+    async (id) => {
         const deleteContact = await api.deleteContact(id);
-        dispatch(actions.deleteContactSuccess(deleteContact));
-
-    } catch (error) {
-        dispatch(actions.deleteContactError(error))
+        return deleteContact;
     }
-
-}
+)
