@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 
 
-import reducer from './reducer';
+import reducer from './contacts/contacts-reducer';
 
 const middleware = [
   ...getDefaultMiddleware({

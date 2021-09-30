@@ -1,5 +1,5 @@
-import * as actions from './actions';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import {changeFilter } from './contacts-actions';
+import { fetchContacts, addContact, deleteContact } from './contacts-operations';
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -19,7 +19,7 @@ const addContactReducer = (state, { payload}) => {
 const items = createReducer([], {
     [fetchContacts.fulfilled]: (state, { payload }) => payload,
     [addContact.fulfilled]: addContactReducer,
-    [deleteContact.fulfilled]: (state, { payload}) => state.filter(item => item.id !== payload),
+    [deleteContact.fulfilled]: (state, { payload }) => state.filter(item => item.id !== payload),
     })
 
 const loading = createReducer(false, {
@@ -31,14 +31,14 @@ const loading = createReducer(false, {
     [addContact.fulfilled]: () => false,
     [addContact.rejected]: () => false,
 
-    [addContact.pending]: () => true,
-    [addContact.fulfilled]: () => false,
-    [addContact.rejected]: () => false,
+    [deleteContact.pending]: () => true,
+    [deleteContact.fulfilled]: () => false,
+    [deleteContact.rejected]: () => false,
 
 })
 
 const filter = createReducer('', {
-    [actions.changeFilter]: (_, {payload}) => payload,
+    [changeFilter]: (_, {payload}) => payload,
 })
 
 const error = createReducer(null, {

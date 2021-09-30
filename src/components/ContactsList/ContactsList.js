@@ -2,30 +2,22 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import s from './ContactsList.module.css';
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { deleteContact, fetchContacts } from 'redux/contacts/contacts-operations';
 import { TiDeleteOutline } from "react-icons/ti";
+import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
 
 const ContactsList = () => {
-
-  const getFilteredContacts = (state) => {
-    const { items, filter } = state.contacts;
-     const normalizeFilter = filter.toLowerCase();
-    return items.filter(item =>
-      item.name.toLowerCase().includes(normalizeFilter),
-    );
-  }
 
   const contacts = useSelector(state => getFilteredContacts(state));
   const dispatch = useDispatch();
 
+   const onDeleteContact = id => dispatch(deleteContact(id));
+
   useEffect(() => 
-    dispatch(fetchContacts()), [dispatch]
+    dispatch(fetchContacts())
+
+    , [dispatch]
   )
-
-  const onDeleteContact = id => dispatch(deleteContact(id));
-
-  
-
 
   return (
     <ul className={ s.list}>
