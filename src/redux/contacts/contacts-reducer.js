@@ -1,5 +1,5 @@
-import {changeFilter } from './contacts-actions';
-import { fetchContacts, addContact, deleteContact } from './contacts-operations';
+import * as actions from './contacts-actions';
+//import { fetchContacts, addContact, deleteContact } from './contacts-operations';
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -10,41 +10,41 @@ import 'react-toastify/dist/ReactToastify.css';
 const addContactReducer = (state, { payload}) => {
     if (state.find(item => item.name === payload.name)) {
         toast.error(`${payload.name} is already in contacts`);
-        return state;
+        return;
     } else {
         return [...state, payload]
     }
 }
 
 const items = createReducer([], {
-    [fetchContacts.fulfilled]: (state, { payload }) => payload,
-    [addContact.fulfilled]: addContactReducer,
-    [deleteContact.fulfilled]: (state, { payload }) => state.filter(item => item.id !== payload),
+    [actions.fetchContactSuccess]: (state, { payload }) => payload,
+    [actions.addContactSuccess]: addContactReducer,
+    [actions.deleteContactSuccess]: (state, { payload }) => state.filter(item => item.id !== payload),
     })
 
 const loading = createReducer(false, {
-    [fetchContacts.pending]: () => true,
-    [fetchContacts.fulfilled]: () => false,
-    [fetchContacts.rejected]: () => false,
+    [actions.fetchContactRequest]: () => true,
+    [actions.fetchContactSuccess]: () => false,
+    [actions.fetchContactError]: () => false,
 
-    [addContact.pending]: () => true,
-    [addContact.fulfilled]: () => false,
-    [addContact.rejected]: () => false,
+    [actions.addContactRequest]: () => true,
+    [actions.addContactSuccess]: () => false,
+    [actions.addContactError]: () => false,
 
-    [deleteContact.pending]: () => true,
-    [deleteContact.fulfilled]: () => false,
-    [deleteContact.rejected]: () => false,
+    [actions.deleteContactRequest]: () => true,
+    [actions.deleteContactSuccess]: () => false,
+    [actions.deleteContactError]: () => false,
 
 })
 
 const filter = createReducer('', {
-    [changeFilter]: (_, {payload}) => payload,
+    [actions.changeFilter]: (_, {payload}) => payload,
 })
 
 const error = createReducer(null, {
-    [fetchContacts.rejected]: (_, { payload }) => payload,
-    [deleteContact.rejected]:(_, { payload }) => payload,
-    [addContact.rejected]: (_, { payload }) => payload,
+    [actions.fetchContactError]: (_, { payload }) => payload,
+    [actions.deleteContactError]:(_, { payload }) => payload,
+    [actions.addContactError]: (_, { payload }) => payload,
 
 })
 export default combineReducers({ items, filter, loading, error });

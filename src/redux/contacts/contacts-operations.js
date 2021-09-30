@@ -1,31 +1,40 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-//import { toast } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
 import * as api from '../../services/services';
+import * as actions from './contacts-actions';
 
 
-export const fetchContacts = createAsyncThunk(
-    'contacts/fetchContacts',
-    async () => {
+export const fetchContacts = () => async dispatch => {
+    
+    dispatch(actions.fetchContactRequest());
+
+    try {
         const contacts = await api.fetchContacts();
-        return contacts; 
+        dispatch(actions.fetchContactSuccess(contacts))
+
+    } catch (error) {
+        dispatch(actions.fetchContactError(error))
     }
-)
+ }
 
+export const addContact = contactInfo => async dispatch => {  
+    dispatch(actions.addContactRequest());
 
-export const addContact = createAsyncThunk(
-    'contacts/addContact',
-    async (contactInfo) => {
+    try {
         const contact = await api.addContacts(contactInfo);
-        return contact;
+        dispatch(actions.addContactSuccess(contact))
+    } catch (error) {
+        dispatch(actions.addContactError(error))
     }
-)
+}
 
+export const deleteContact = id => async dispatch => {
+    dispatch(actions.deleteContactRequest());
 
-export const deleteContact = createAsyncThunk(
-    'contacts/deleteContacts',
-    async (id) => {
+    try {
         const deleteContact = await api.deleteContact(id);
-        return deleteContact;
+        dispatch(actions.deleteContactSuccess(deleteContact));
+
+    } catch (error) {
+        dispatch(actions.deleteContactError(error))
     }
-)
+
+} 
