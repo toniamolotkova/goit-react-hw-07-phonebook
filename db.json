@@ -1,3 +1,14 @@
 {
-  "contacts": []
+  "contacts": [
+    {
+      "name": "Gerry",
+      "number": "454-45-23",
+      "id": 2
+    },
+    {
+      "name": "Jonny",
+      "number": "454-45-67",
+      "id": 3
+    }
+  ]
 }
