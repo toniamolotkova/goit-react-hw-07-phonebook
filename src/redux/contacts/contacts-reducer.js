@@ -1,24 +1,10 @@
 import * as actions from './contacts-actions';
-//import { fetchContacts, addContact, deleteContact } from './contacts-operations';
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
-const addContactReducer = (state, { payload}) => {
-    if (state.find(item => item.name === payload.name)) {
-        toast.error(`${payload.name} is already in contacts`);
-        return;
-    } else {
-        return [...state, payload]
-    }
-}
 
 const items = createReducer([], {
     [actions.fetchContactSuccess]: (state, { payload }) => payload,
-    [actions.addContactSuccess]: addContactReducer,
+    [actions.addContactSuccess]: (state, { payload}) => [...state, payload],
     [actions.deleteContactSuccess]: (state, { payload }) => state.filter(item => item.id !== payload),
     })
 

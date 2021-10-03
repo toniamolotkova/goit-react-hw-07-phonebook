@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import s from './ContactForm.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-operations';
 import { TiTickOutline } from 'react-icons/ti';
+import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ContactForm() {
   
@@ -10,6 +13,7 @@ function ContactForm() {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
+  const contacts = useSelector(getFilteredContacts);
  
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -28,6 +32,10 @@ function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (contacts.find(contact => contact.name === name)) {
+      toast.error(`${name} is already in contacts`);
+      return;
+    }
 
     dispatch(addContact({ name, number }));
     reset();

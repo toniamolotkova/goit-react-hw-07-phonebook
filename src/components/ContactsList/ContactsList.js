@@ -8,15 +8,13 @@ import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
 
 const ContactsList = () => {
 
-  const contacts = useSelector(state => getFilteredContacts(state));
+  const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
    const onDeleteContact = id => dispatch(deleteContact(id));
 
   useEffect(() => 
-    dispatch(fetchContacts())
-
-    , [dispatch]
+    dispatch(fetchContacts()), [dispatch]
   )
 
   return (
